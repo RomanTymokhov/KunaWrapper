@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CunaWrapper.DataLevel.RciveData
+namespace KunaWrapper.DataLayer.ReciveData
 {
     public class TickerLine
     {

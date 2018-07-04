@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using KunaWrapper.DataLayer.Enums;
 
-namespace CunaWrapper.DataLevel.RciveData
+namespace KunaWrapper.DataLayer.ReciveData
 {
     public class Trade
     {

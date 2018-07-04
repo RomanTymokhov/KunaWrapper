@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using KunaWrapper.DataLayer.Enums;
 
-namespace CunaWrapper.DataLevel.RciveData
+namespace KunaWrapper.DataLayer.ReciveData
 {
     public class OrderBook
     {
