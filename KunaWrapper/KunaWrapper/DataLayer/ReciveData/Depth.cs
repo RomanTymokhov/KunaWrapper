@@ -11,9 +11,9 @@ namespace KunaWrapper.DataLayer.ReciveData
         public int timestamp;
 
         [JsonProperty(PropertyName = "asks")]
-        public List<KeyValuePair<string, string>> asks;
+        public List<List<decimal>> asks;
 
         [JsonProperty(PropertyName = "bids")]
-        public List<KeyValuePair<string, string>> bids;
+        public List<List<decimal>> bids;
     }
 }
