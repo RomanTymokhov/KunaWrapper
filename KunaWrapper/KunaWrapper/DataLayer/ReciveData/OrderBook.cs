@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Collections.Generic;
 using KunaWrapper.DataLayer.Enums;
 
@@ -7,49 +8,84 @@ namespace KunaWrapper.DataLayer.ReciveData
 {
     public class OrderBook
     {
-        [JsonProperty(PropertyName = "asks")]
-        public List<Order> asks;
+        [JsonProperty("asks")]
+        public List<Order> Asks { get; set; }
 
-        [JsonProperty(PropertyName = "bids")]
-        public List<Order> bids;
+        [JsonProperty("bids")]
+        public List<Order> Bids { get; set; }
     }
 
     public class Order
     {
-        [JsonProperty(PropertyName = "id")]
-        public uint orderId;
+        [JsonProperty("id")]
+        public uint OrderId { get; set; }
 
-        [JsonProperty(PropertyName = "side")]
-        public OrderSide side;
+        [JsonProperty("side")]
+        public OrderSide OrderSide { get; set; }
 
-        [JsonProperty(PropertyName = "ord_type")]
-        public OrderType orderType;
+        [JsonProperty("ord_type")]
+        public OrderType OrderType { get; set; }
 
-        [JsonProperty(PropertyName = "price")]
-        public decimal price;
+        [JsonProperty("price")]
+        private readonly string price;
+        public decimal CoinPrice
+        {
+            get
+            {
+                return price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
+            }
+        }
 
-        [JsonProperty(PropertyName = "avg_price")]
-        public decimal avg_price;
+        [JsonProperty("avg_price")]
+        private readonly string avg_price;
+        public decimal AveragePrice
+        {
+            get
+            {   // средняя цена по ордеру
+                return avg_price != null ? Convert.ToDecimal(avg_price, CultureInfo.InvariantCulture) : -1;
+            }
+        }
 
-        [JsonProperty(PropertyName = "state")]
-        public OrderState orderState;
+        [JsonProperty("state")]
+        public OrderState OrderState { get; set; }
 
-        [JsonProperty(PropertyName = "market")]
-        public MarketPair marketPair;
+        [JsonProperty("market")]
+        public MarketPair MarketPair { get; set; }
 
-        [JsonProperty(PropertyName = "created_at")]
-        public DateTime createdAt;
+        [JsonProperty("created_at")]
+        public DateTime CreatedTime { get; set; }
 
-        [JsonProperty(PropertyName = "volume")]
-        public decimal volume;
+        [JsonProperty("volume")]
+        private readonly string volume;
+        public decimal BaseVolume
+        {
+            get
+            {
+                return volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
+            }
+        }
 
-        [JsonProperty(PropertyName = "remaining_volume")]
-        public decimal remainingVolume;
+        [JsonProperty("remaining_volume")]
+        private readonly string remainingVolume;
+        public decimal RemaininVolume
+        {
+            get
+            {
+                return remainingVolume != null ? Convert.ToDecimal(remainingVolume, CultureInfo.InvariantCulture) : -1;
+            }
+        }
 
-        [JsonProperty(PropertyName = "executed_volume")]
-        public decimal executedVolume;
+        [JsonProperty("executed_volume")]
+        private readonly string executedVolume;
+        public decimal ExeutedVolume
+        {
+            get
+            {
+                return executedVolume != null ? Convert.ToDecimal(executedVolume, CultureInfo.InvariantCulture) : -1;
+            }
+        }
 
-        [JsonProperty(PropertyName = "trades_count")]
-        public uint tradesCount;
+        [JsonProperty("trades_count")]
+        public ushort TradesCount { get; set; }
     }
 }
