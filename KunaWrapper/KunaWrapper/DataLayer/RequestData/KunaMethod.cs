@@ -23,6 +23,8 @@ namespace KunaWrapper.DataLayer.RequestData
 
         public static string KunaPerson{ get { return "/api/v2/members/me";} }
 
+        public static string KunaPersonOrders { get { return "/api/v2/orders"; } }
+
         //public static string Orders { get { return "/api/v2/orders?market={0}"; } }
     }
 }

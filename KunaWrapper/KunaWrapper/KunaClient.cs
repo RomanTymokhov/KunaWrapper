@@ -61,11 +61,20 @@ namespace KunaWrapper
         {
             var args = new RequestObjectKunaPerson(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds());
 
-            //return await PostJsonAsync<KunaPerson>(KunaMethod.KunaPerson, args.ToString());
+            var url = new StringBuilder(KunaMethod.KunaPerson);
+            url.AppendFormat("?{0}", args.ToString());
 
-            var uri = baseAddress + KunaMethod.KunaPerson + "?" + args.ToString();
+            return await GetJsonAsync<KunaPerson>(url.ToString());
+        }
 
-            return await GetJsonAsync<KunaPerson>(uri);
+        public async Task<List<Order>> GetKunaPersonOrdersAsync(MarketPair pair)
+        {
+            var args = new RequestObjectKunaPersonOrders(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), pair);
+
+            var url = new StringBuilder(KunaMethod.KunaPersonOrders);
+            url.AppendFormat("?{0}", args.ToString());
+
+            return await GetJsonAsync<List<Order>>(url.ToString());
         }
 
         #endregion
