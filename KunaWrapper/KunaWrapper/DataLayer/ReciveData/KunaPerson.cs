@@ -8,13 +8,13 @@ namespace KunaWrapper.DataLayer.ReciveData
 {
     public class KunaPerson
     {
-        [JsonProperty(PropertyName = "email")]
+        [JsonProperty("email")]
         public string Email { get; private set; }
 
-        [JsonProperty(PropertyName = "activated")]
+        [JsonProperty("activated")]
         public bool IsAktivated { get; private set; }
 
-        [JsonProperty(PropertyName = "accounts")]
+        [JsonProperty("accounts")]
         public List<Assets> Assetses { get; private set; }
 
     }
