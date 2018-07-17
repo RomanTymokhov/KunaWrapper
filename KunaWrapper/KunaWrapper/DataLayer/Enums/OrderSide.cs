@@ -7,6 +7,9 @@ namespace KunaWrapper.DataLayer.Enums
     public enum OrderSide
     {
         buy,
-        sell
+        sell,
+        bid,
+        ask,
+        noll
     }
 }
