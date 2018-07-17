@@ -1,50 +1,50 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System;
 using System.Web;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
     public class RequestObject
     {
-        [JsonProperty(PropertyName = "access_key")]
-        public string AccesKey { get; private set; }
+        private readonly string secretKey;
 
-        [JsonProperty(PropertyName = "tonce")]
-        public string Tonce { get; private set; }
-
-        [JsonProperty(PropertyName = "signature")]
-        public string Signature { get; private set; }
+        internal Dictionary<string, string> RequestArgs { get; set; }
 
 
-        public RequestObject (string pubKey, int tonce)
+        public RequestObject(string pubKey, string secretKey, long tonce)
         {
-            AccesKey = pubKey;
-            Tonce = tonce.ToString();
+            this.secretKey = secretKey;
+
+            RequestArgs = new Dictionary<string, string>
+            {
+                ["access_key"] = pubKey,
+                ["tonce"] = tonce.ToString()
+            };
         }
 
 
-        public void GenerateSignature(string method, string uri)
+        public void GenerateRequest(string method, string uri)
         {
-            Signature = CreateSignature(method, uri);
+            CreateSignature(method, uri);
         }
 
-        private string CreateSignature(string method ,string uri)
+        private void CreateSignature(string method ,string uri)
         {
-            var sortetDict = new SortedDictionary<string, string>(SetParam());
-            var sortedArgs = BuildPostData(sortetDict, true);
+            var sortetDict = new SortedDictionary<string, string>(RequestArgs);
+            var sortedArgs = BuildPostData(sortetDict);
             var msg = method + "|" + uri + "|" + sortedArgs;  // "HTTP-verb|URI|params"
-            var key = Encoding.ASCII.GetBytes(AccesKey);
+            var key = Encoding.ASCII.GetBytes(secretKey);
             var msgBytes = Encoding.ASCII.GetBytes(msg);
             using (var hmac = new HMACSHA256(key))
             {
                 byte[] hashmessage = hmac.ComputeHash(msgBytes);
-                return BitConverter.ToString(hashmessage).Replace("-", string.Empty).ToLower();
+
+                RequestArgs["signature"] = BitConverter.ToString(hashmessage).Replace("-", string.Empty).ToLower();                
             }
-        }         
+        }
 
         private static string BuildPostData(IDictionary<string, string> dict, bool escape = true)
         {
@@ -52,13 +52,9 @@ namespace KunaWrapper.DataLayer.RequestData
                  string.Format("{0}={1}", kvp.Key, escape ? HttpUtility.UrlEncode(kvp.Value) : kvp.Value)));
         }
 
-        private Dictionary<string, string> SetParam()
+        public override string ToString()
         {
-            return new Dictionary<string, string>
-            {
-                ["acces_key"] = AccesKey,
-                ["tonce"] = Tonce
-            };
+            return BuildPostData(RequestArgs);
         }
     }
 }
