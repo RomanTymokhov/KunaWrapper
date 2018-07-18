@@ -20,5 +20,10 @@ namespace KunaWrapper.DataLayer.RequestData
 
             GenerateRequest("POST");
         }
+
+        public override string ToString()
+        {
+            return BuildRequestData(RequestArgs);
+        }
     }
 }
