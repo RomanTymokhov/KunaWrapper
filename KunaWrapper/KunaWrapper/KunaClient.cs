@@ -1,4 +1,5 @@
-﻿using KunaWrapper.DataLayer.ReciveData;
+﻿using KunaWrapper.DataLayer.KunaException;
+using KunaWrapper.DataLayer.ReciveData;
 using KunaWrapper.DataLayer.RequestData;
 using KunaWrapper.DataLayer.Enums;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System;
 
 namespace KunaWrapper
 {
-    public class KunaClient
+    public class KunaClient : IDisposable
     {
         private readonly HttpClient httpClient;
 
@@ -33,6 +34,15 @@ namespace KunaWrapper
 
             var json = await response.Content.ReadAsStringAsync();
 
+            if (!response.IsSuccessStatusCode)
+            {
+                var exception = JsonConvert.DeserializeObject<Error>(json);
+
+                throw new KunaApiException("На данный момент не возможно подключиться к Kuna. " +
+                                            $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
+                                            $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
+            }
+
             response.EnsureSuccessStatusCode();         // throw if web request failed
             
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(json));
@@ -44,6 +54,15 @@ namespace KunaWrapper
                 new StringContent(request.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded")).ConfigureAwait(false);
 
             var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var exception = JsonConvert.DeserializeObject<Error>(json);
+
+                throw new KunaApiException("На данный момент есть рудности с подключением к Kuna. " +
+                                            $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
+                                            $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
+            }
 
             response.EnsureSuccessStatusCode();         // throw if web request failed
             
@@ -107,5 +126,10 @@ namespace KunaWrapper
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            httpClient.Dispose();
+        }
     }
 }
