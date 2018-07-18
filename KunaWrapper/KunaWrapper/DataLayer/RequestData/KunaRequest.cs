@@ -7,14 +7,20 @@ using System.Security.Cryptography;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    public class RequestObject
+    public abstract class KunaRequest
     {
         private readonly string secretKey;
 
+        public string Url { get; set; }
+
         internal Dictionary<string, string> RequestArgs { get; set; }
 
+        public KunaRequest()
+        {
+            RequestArgs = new Dictionary<string, string>();
+        }
 
-        public RequestObject(string pubKey, string secretKey, long tonce)
+        public KunaRequest(string pubKey, string secretKey, long tonce)
         {
             this.secretKey = secretKey;
 
@@ -26,15 +32,15 @@ namespace KunaWrapper.DataLayer.RequestData
         }
 
 
-        public void GenerateRequest(string method, string uri)
+        public void GenerateRequest(string method)
         {
-            CreateSignature(method, uri);
+            CreateSignature(method, Url);
         }
 
         private void CreateSignature(string method ,string uri)
         {
             var sortetDict = new SortedDictionary<string, string>(RequestArgs);
-            var sortedArgs = BuildPostData(sortetDict);
+            var sortedArgs = BuildRequestData(sortetDict);
             var msg = method + "|" + uri + "|" + sortedArgs;  // "HTTP-verb|URI|params"
             var key = Encoding.ASCII.GetBytes(secretKey);
             var msgBytes = Encoding.ASCII.GetBytes(msg);
@@ -46,7 +52,7 @@ namespace KunaWrapper.DataLayer.RequestData
             }
         }
 
-        private static string BuildPostData(IDictionary<string, string> dict, bool escape = true)
+        internal static string BuildRequestData(IDictionary<string, string> dict, bool escape = true)
         {
             return string.Join("&", dict.Select(kvp =>
                  string.Format("{0}={1}", kvp.Key, escape ? HttpUtility.UrlEncode(kvp.Value) : kvp.Value)));
@@ -54,7 +60,7 @@ namespace KunaWrapper.DataLayer.RequestData
 
         public override string ToString()
         {
-            return BuildPostData(RequestArgs);
+            return BuildRequestData(RequestArgs);
         }
     }
 }

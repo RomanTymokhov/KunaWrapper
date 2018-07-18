@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace KunaWrapper.DataLayer.ReciveData
 {
-    public class KunaPerson
+    public class Holder
     {
         [JsonProperty("email")]
         public string Email { get; private set; }

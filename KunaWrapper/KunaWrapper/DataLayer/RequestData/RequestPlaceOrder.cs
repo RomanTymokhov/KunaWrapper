@@ -6,9 +6,9 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestObjectPlaceOrder : RequestObject
+    internal class RequestPlaceOrder : KunaRequest
     {
-        public RequestObjectPlaceOrder(string pubKey, string secKey, long tonce, OrderSide orderSide, 
+        public RequestPlaceOrder(string pubKey, string secKey, long tonce, OrderSide orderSide, 
                                      decimal volume, MarketPair pair, decimal coinPrice) : base(pubKey, secKey, tonce)
         {
             RequestArgs["side"] = orderSide.ToString();
@@ -16,7 +16,9 @@ namespace KunaWrapper.DataLayer.RequestData
             RequestArgs["market"] = pair.ToString();
             RequestArgs["price"] = coinPrice.ToString(CultureInfo.InvariantCulture);
 
-            GenerateRequest("POST", KunaMethod.PlaceOrder);
+            Url = "/api/v2/orders";
+
+            GenerateRequest("POST");
         }
     }
 }
