@@ -1,14 +1,13 @@
 ﻿using KunaWrapper.DataLayer.Enums;
 using KunaWrapper.DataLayer.ReciveData;
 using KunaWrapper.DataLayer.RequestData;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
+using System;
+using System.Linq;
 using System.Web;
 
 namespace KunaWrapper
@@ -67,7 +66,7 @@ namespace KunaWrapper
             return await GetJsonAsync<KunaPerson>(url.ToString());
         }
 
-        public async Task<List<Order>> GetKunaPersonOrdersAsync(MarketPair pair)
+        public async Task<List<Order>> GetKunaPersonActiveOrdersAsync(MarketPair pair)
         {
             var args = new RequestObjectKunaPersonOrders(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), pair);
 
@@ -75,6 +74,30 @@ namespace KunaWrapper
             url.AppendFormat("?{0}", args.ToString());
 
             return await GetJsonAsync<List<Order>>(url.ToString());
+        }
+
+        public async Task<List<Trade>> GetKunaPersonTradesAsync(MarketPair pair)
+        {
+            var args = new RequestObjectKunaPersonTrades(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), pair);
+
+            var url = new StringBuilder(KunaMethod.KunaPersonTrades);
+            url.AppendFormat("?{0}", args.ToString());
+
+            return await GetJsonAsync<List<Trade>>(url.ToString());
+        }
+
+        public async Task<Order> PlaceOrderAsync(OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice)
+        {
+            var args = new RequestObjectPlaceOrder(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), orderSide, volume, pair, coinPrice);
+            
+            return await PostJsonAsync<Order>(KunaMethod.PlaceOrder, args.ToString());
+        }
+
+        public async Task<Order> CancelOrderAsync(uint orderId)
+        {
+            var args = new RequestObjectCancelOrder(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), orderId);
+
+            return await PostJsonAsync<Order>(KunaMethod.CancelOrder, args.ToString());
         }
 
         #endregion
