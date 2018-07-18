@@ -6,6 +6,7 @@ namespace KunaWrapper.DataLayer.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum OrderState
     {
-        wait
+        wait,
+        cancel
     }
 }
