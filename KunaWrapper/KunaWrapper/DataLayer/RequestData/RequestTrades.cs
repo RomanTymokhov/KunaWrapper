@@ -5,11 +5,12 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestTrades : KunaRequest
     {
-        public RequestTrades(MarketPair pair) : base()
+        public RequestTrades(MarketPair pair, ushort limit) : base()
         {
             Url = "/api/v2/trades";
 
             RequestArgs["market"] = pair.ToString();
+            RequestArgs["limit"] = limit.ToString();
         }
 
         public override string ToString()

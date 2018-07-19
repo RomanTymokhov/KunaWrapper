@@ -115,9 +115,9 @@ namespace KunaWrapper
             return await GetJsonAsync<OrderBook>(new RequestOrderbook(pair));
         }
 
-        public async Task<List<Trade>> GetTradesAsync(MarketPair pair)
+        public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000)
         {
-            return await GetJsonAsync<List<Trade>>(new RequestTrades(pair));
+            return await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
         }
 
         public async Task<Depth> GetDepthAsync(MarketPair pair)
