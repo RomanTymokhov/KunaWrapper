@@ -15,7 +15,6 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("accounts")]
         public List<Assets> Assetses { get; private set; }
-
     }
 
     public class Assets
@@ -25,24 +24,10 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("balance")]
         private readonly string ballance;
-        public decimal Ballance
-        {
-            get
-            {
-                return ballance != null ? Convert.ToDecimal(ballance, CultureInfo.InvariantCulture) : -1 ;
-            }
-        }
+        public decimal Ballance => ballance != null ? Convert.ToDecimal(ballance, CultureInfo.InvariantCulture) : -1 ;
 
         [JsonProperty("locked")]
         private readonly string lockedSum;
-        public decimal LockedSum
-        {
-            get
-            {
-                return ballance != null ? Convert.ToDecimal(lockedSum, CultureInfo.InvariantCulture) : -1;
-            }
-        }
-
-
+        public decimal LockedSum => ballance != null ? Convert.ToDecimal(lockedSum, CultureInfo.InvariantCulture) : -1;
     }
 }

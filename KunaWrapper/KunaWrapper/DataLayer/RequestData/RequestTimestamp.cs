@@ -7,9 +7,6 @@
             Url = "/api/v2/timestamp";
         }
 
-        public override string ToString()
-        {
-            return Url;
-        }
+        public override string ToString() => Url;
     }
 }

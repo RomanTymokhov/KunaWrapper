@@ -13,24 +13,13 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("asks")]
         private readonly List<List<string>> asks;
-        public List<List<decimal>> Asks
-        {
-            get
-            {
-                return ConvertToDecimal(asks);
-            }
-        }
+        public List<List<decimal>> Asks => ConvertToDecimal(asks);
 
         [JsonProperty("bids")]
         private readonly List<List<string>> bids;
-        public List<List<decimal>> Bids
-        {
-            get
-            {
-                return ConvertToDecimal(bids);
-            }
-        }
+        public List<List<decimal>> Bids => ConvertToDecimal(bids);
 
+        //потом может как-то оптимизировать
         private List<List<decimal>> ConvertToDecimal(List<List<string>> depthList)
         {
             var list = new List<List<decimal>>();

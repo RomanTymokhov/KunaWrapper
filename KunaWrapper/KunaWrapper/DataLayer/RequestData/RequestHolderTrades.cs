@@ -5,7 +5,7 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestHolderTrades : KunaRequest
     {
-        public RequestHolderTrades(string pubKey, string secKey, long tonce, MarketPair pair) : base(pubKey, secKey, tonce)
+        public RequestHolderTrades(SignParams sign, MarketPair pair) : base(sign)
         {
             RequestArgs["market"] = pair.ToString();
 

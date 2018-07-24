@@ -15,27 +15,22 @@ namespace KunaWrapper.DataLayer.RequestData
 
         internal Dictionary<string, string> RequestArgs { get; set; }
 
-        public KunaRequest()
-        {
-            RequestArgs = new Dictionary<string, string>();
-        }
 
-        public KunaRequest(string pubKey, string secretKey, long tonce)
+        public KunaRequest() => RequestArgs = new Dictionary<string, string>();
+
+        public KunaRequest(SignParams sign)
         {
-            this.secretKey = secretKey;
+            secretKey = sign.SecretKey;
 
             RequestArgs = new Dictionary<string, string>
             {
-                ["access_key"] = pubKey,
-                ["tonce"] = tonce.ToString()
+                ["access_key"] = sign.PublicKey,
+                ["tonce"] = sign.GetTonce()
             };
         }
 
 
-        public void GenerateRequest(string method)
-        {
-            CreateSignature(method, Url);
-        }
+        public void GenerateRequest(string method) => CreateSignature(method, Url);
 
         private void CreateSignature(string method ,string uri)
         {
@@ -52,10 +47,7 @@ namespace KunaWrapper.DataLayer.RequestData
             }
         }
 
-        internal static string BuildRequestData(IDictionary<string, string> dict, bool escape = true)
-        {
-            return string.Join("&", dict.Select(kvp =>
+        internal static string BuildRequestData(IDictionary<string, string> dict, bool escape = true) => string.Join("&", dict.Select(kvp =>
                  string.Format("{0}={1}", kvp.Key, escape ? HttpUtility.UrlEncode(kvp.Value) : kvp.Value)));
-        }
     }
 }

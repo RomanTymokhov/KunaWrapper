@@ -4,7 +4,7 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestHolderInfo : KunaRequest
     {
-        public RequestHolderInfo(string pubKey, string secKey, long tonce) : base(pubKey, secKey, tonce)
+        public RequestHolderInfo(SignParams sign) : base(sign)
         {
             Url = "/api/v2/members/me";
 

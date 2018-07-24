@@ -28,23 +28,11 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("price")]
         private readonly string price;
-        public decimal CoinPrice
-        {
-            get
-            {
-                return price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal CoinPrice => price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("avg_price")]
-        private readonly string avg_price;
-        public decimal AveragePrice
-        {
-            get
-            {   // средняя цена по ордеру
-                return avg_price != null ? Convert.ToDecimal(avg_price, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        private readonly string avg_price;       // средняя цена по ордеру
+        public decimal AveragePrice => avg_price != null ? Convert.ToDecimal(avg_price, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("state")]
         public OrderState OrderState { get; set; }
@@ -57,33 +45,15 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("volume")]
         private readonly string volume;
-        public decimal BaseVolume
-        {
-            get
-            {
-                return volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal BaseVolume => volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("remaining_volume")]
         private readonly string remainingVolume;
-        public decimal RemaininVolume
-        {
-            get
-            {
-                return remainingVolume != null ? Convert.ToDecimal(remainingVolume, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal RemaininVolume => remainingVolume != null ? Convert.ToDecimal(remainingVolume, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("executed_volume")]
         private readonly string executedVolume;
-        public decimal ExeutedVolume
-        {
-            get
-            {
-                return executedVolume != null ? Convert.ToDecimal(executedVolume, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal ExeutedVolume => executedVolume != null ? Convert.ToDecimal(executedVolume, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("trades_count")]
         public ushort TradesCount { get; set; }

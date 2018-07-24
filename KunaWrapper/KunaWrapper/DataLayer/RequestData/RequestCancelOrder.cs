@@ -6,7 +6,7 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestCancelOrder : KunaRequest
     {
-        public RequestCancelOrder(string pubKey, string secKey, long tonce, uint orderId) : base(pubKey, secKey, tonce)
+        public RequestCancelOrder(SignParams sign, uint orderId) : base(sign)
         {
             RequestArgs["id"] = orderId.ToString();
 
@@ -15,9 +15,6 @@ namespace KunaWrapper.DataLayer.RequestData
             GenerateRequest("POST");
         }
 
-        public override string ToString()
-        {
-            return BuildRequestData(RequestArgs);
-        }
+        public override string ToString() => BuildRequestData(RequestArgs);
     }
 }

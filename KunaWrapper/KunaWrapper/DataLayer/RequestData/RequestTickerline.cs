@@ -9,9 +9,6 @@ namespace KunaWrapper.DataLayer.RequestData
             Url = "/api/v2/tickers/" + pair.ToString();
         }
 
-        public override string ToString()
-        {
-            return Url;
-        }
+        public override string ToString() => Url;
     }
 }

@@ -12,33 +12,15 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("price")]
         private readonly string price;
-        public decimal CoinPrice
-        {
-            get
-            {
-                return price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal CoinPrice => price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("volume")]
         private readonly string volume;
-        public decimal BaseVolume
-        {
-            get
-            {
-                return volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal BaseVolume => volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("funds")]
         private readonly string funds;
-        public decimal RelativeVolume
-        {
-            get
-            {
-                return funds != null ? Convert.ToDecimal(funds, CultureInfo.InvariantCulture) : -1;
-            }
-        }
+        public decimal RelativeVolume => funds != null ? Convert.ToDecimal(funds, CultureInfo.InvariantCulture) : -1;
 
         [JsonProperty("market")]
         public MarketPair MarketPair { get; set; }
@@ -48,13 +30,7 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("side")]
         private readonly string side;
-        public OrderSide OrderSide
-        {
-            get
-            {
-                return GetOrderSide(side);
-            }
-        }
+        public OrderSide OrderSide => GetOrderSide(side);
 
         public uint GetUnixTime()
         {

@@ -8,8 +8,7 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestPlaceOrder : KunaRequest
     {
-        public RequestPlaceOrder(string pubKey, string secKey, long tonce, OrderSide orderSide, 
-                                     decimal volume, MarketPair pair, decimal coinPrice) : base(pubKey, secKey, tonce)
+        public RequestPlaceOrder(SignParams sign, OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice) : base(sign)
         {
             RequestArgs["side"] = orderSide.ToString();
             RequestArgs["volume"] = volume.ToString(CultureInfo.InvariantCulture);
@@ -21,9 +20,6 @@ namespace KunaWrapper.DataLayer.RequestData
             GenerateRequest("POST");
         }
 
-        public override string ToString()
-        {
-            return BuildRequestData(RequestArgs);
-        }
+        public override string ToString() => BuildRequestData(RequestArgs);
     }
 }

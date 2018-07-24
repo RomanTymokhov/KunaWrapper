@@ -17,13 +17,11 @@ namespace KunaWrapper
 
         private const string baseAddress = "https://kuna.io";
 
-        private readonly string publicKey;
-        private readonly string secretKey;
+        private readonly SignParams signParams;
 
         public KunaClient(string pubKey, string secKey)
         {
-            publicKey = pubKey;
-            secretKey = secKey;
+            signParams = new SignParams(pubKey, secKey);
 
             httpClient = new HttpClient { BaseAddress = new Uri(baseAddress)};
         }
@@ -38,7 +36,7 @@ namespace KunaWrapper
             {
                 var exception = JsonConvert.DeserializeObject<Error>(json);
 
-                throw new KunaApiException("На данный момент не возможно подключиться к Kuna. " +
+                throw new KunaApiException("Ошибка подключения к Kuna:" +
                                             $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
                                             $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
             }
@@ -59,7 +57,7 @@ namespace KunaWrapper
             {
                 var exception = JsonConvert.DeserializeObject<Error>(json);
 
-                throw new KunaApiException("На данный момент есть рудности с подключением к Kuna. " +
+                throw new KunaApiException("Ошибка подключения к Kuna:" +
                                             $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
                                             $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
             }
@@ -71,65 +69,32 @@ namespace KunaWrapper
 
         #region Private Methods
 
-        public async Task<Holder> GetHolderInfoAsync()
-        {
-            return await GetJsonAsync<Holder>(new RequestHolderInfo(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds()));
-        }
+        public async Task<Holder> GetHolderInfoAsync() => await GetJsonAsync<Holder>(new RequestHolderInfo(signParams));
 
-        public async Task<List<Order>> GetHolderOrdersAsync(MarketPair pair)
-        {
-            return await GetJsonAsync<List<Order>>(new RequestHolderOrders(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), pair));
-        }
+        public async Task<List<Order>> GetHolderOrdersAsync(MarketPair pair) => await GetJsonAsync<List<Order>>(new RequestHolderOrders(signParams, pair));
 
-        public async Task<List<Trade>> GetHolderTradesAsync(MarketPair pair)
-        {
-            return await GetJsonAsync<List<Trade>>(new RequestHolderTrades(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), pair));
-        }
+        public async Task<List<Trade>> GetHolderTradesAsync(MarketPair pair) => await GetJsonAsync<List<Trade>>(new RequestHolderTrades(signParams, pair));
 
-        public async Task<Order> PlaceOrderAsync(OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice)
-        {            
-            return await PostJsonAsync<Order>(new RequestPlaceOrder(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), orderSide, volume, pair, coinPrice));
-        }
+        public async Task<Order> PlaceOrderAsync(OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice) => await PostJsonAsync<Order>(new RequestPlaceOrder(signParams, orderSide, volume, pair, coinPrice));
 
-        public async Task<Order> CancelOrderAsync(uint orderId)
-        {
-            return await PostJsonAsync<Order>(new RequestCancelOrder(publicKey, secretKey, DateTimeOffset.Now.ToUnixTimeMilliseconds(), orderId));
-        }
+        public async Task<Order> CancelOrderAsync(uint orderId) => await PostJsonAsync<Order>(new RequestCancelOrder(signParams, orderId));
 
         #endregion
 
         #region Public Methods
 
-        public  async Task<long> GetTimestampAsync()
-        {
-            return await GetJsonAsync<long>(new RequestTimestamp());
-        }
+        public  async Task<long> GetTimestampAsync() => await GetJsonAsync<long>(new RequestTimestamp());
 
-        public async Task<TickerLine> GetTickerLineAsync(MarketPair pair)
-        {
-            return await GetJsonAsync<TickerLine>(new RequestTickerline(pair));
-        }
+        public async Task<TickerLine> GetTickerLineAsync(MarketPair pair) => await GetJsonAsync<TickerLine>(new RequestTickerline(pair));
 
-        public async Task<OrderBook> GetOrderBookAsync(MarketPair pair)
-        {
-            return await GetJsonAsync<OrderBook>(new RequestOrderbook(pair));
-        }
+        public async Task<OrderBook> GetOrderBookAsync(MarketPair pair) => await GetJsonAsync<OrderBook>(new RequestOrderbook(pair));
 
-        public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000)
-        {
-            return await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
-        }
+        public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000) => await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
 
-        public async Task<Depth> GetDepthAsync(MarketPair pair)
-        {
-            return await GetJsonAsync<Depth>(new RequestDepth(pair));
-        }
+        public async Task<Depth> GetDepthAsync(MarketPair pair) => await GetJsonAsync<Depth>(new RequestDepth(pair));
 
         #endregion
 
-        public void Dispose()
-        {
-            httpClient.Dispose();
-        }
+        public void Dispose() => httpClient.Dispose();
     }
 }
