@@ -8,13 +8,13 @@ namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestChartData : BaseRequest
     {
-        public RequestChartData(MarketPair pair, ChartFrame chart) : base()
+        public RequestChartData(MarketPair pair, ChartFrame frame) : base()
         {
             Url = "/api/v2/k.json";
 
             RequestArgs["market"] = pair.ToString();
-            RequestArgs["period"] = chart.period.ToString();
-            RequestArgs["limit"] = chart.select.ToString();
+            RequestArgs["period"] = frame.period.ToString();
+            RequestArgs["limit"] = frame.select.ToString();
         }
 
         public override string ToString()

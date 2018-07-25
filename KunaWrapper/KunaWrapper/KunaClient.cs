@@ -79,7 +79,7 @@ namespace KunaWrapper
 
         public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000) => await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
 
-        public async Task<List<List<float>>> GetChartDataAsync(ChartFrame chart, MarketPair pair) => await GetJsonAsync<List<List<float>>>(new RequestChartData(pair, chart));
+        public async Task<List<List<float>>> GetChartDataAsync(ChartFrame frame, MarketPair pair) => await GetJsonAsync<List<List<float>>>(new RequestChartData(pair, frame));
 
         #endregion
 
