@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestCancelOrder : KunaRequest
+    internal class RequestCancelOrder : BaseRequest
     {
         public RequestCancelOrder(SignParams sign, uint orderId) : base(sign)
         {

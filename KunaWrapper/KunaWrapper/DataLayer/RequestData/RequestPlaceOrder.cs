@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestPlaceOrder : KunaRequest
+    internal class RequestPlaceOrder : BaseRequest
     {
         public RequestPlaceOrder(SignParams sign, OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice) : base(sign)
         {

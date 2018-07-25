@@ -2,7 +2,7 @@
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestHolderInfo : KunaRequest
+    internal class RequestHolderInfo : BaseRequest
     {
         public RequestHolderInfo(SignParams sign) : base(sign)
         {

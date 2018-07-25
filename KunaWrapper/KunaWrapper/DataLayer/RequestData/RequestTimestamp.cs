@@ -1,6 +1,6 @@
 ﻿namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestTimestamp : KunaRequest
+    internal class RequestTimestamp : BaseRequest
     {
         public RequestTimestamp () : base()
         {

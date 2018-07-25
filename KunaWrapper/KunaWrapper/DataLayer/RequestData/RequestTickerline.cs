@@ -2,7 +2,7 @@
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestTickerline : KunaRequest
+    internal class RequestTickerline : BaseRequest
     {
         public RequestTickerline(MarketPair pair) : base()
         {

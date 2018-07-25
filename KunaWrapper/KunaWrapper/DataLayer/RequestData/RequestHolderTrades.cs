@@ -3,7 +3,7 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestHolderTrades : KunaRequest
+    internal class RequestHolderTrades : BaseRequest
     {
         public RequestHolderTrades(SignParams sign, MarketPair pair) : base(sign)
         {

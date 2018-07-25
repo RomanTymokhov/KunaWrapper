@@ -3,7 +3,7 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestDepth : KunaRequest
+    internal class RequestDepth : BaseRequest
     {
         public RequestDepth(MarketPair pair) : base()
         {

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    internal class RequestOrderbook : KunaRequest
+    internal class RequestOrderbook : BaseRequest
     {
         public RequestOrderbook(MarketPair pair) : base()
         {

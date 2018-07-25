@@ -32,7 +32,7 @@ namespace KunaWrapper.DataLayer.RequestData
 
         public void GenerateRequest(string method) => CreateSignature(method, Url);
 
-        private void CreateSignature(string method ,string uri)
+        private void CreateSignature(string method, string uri)
         {
             var sortetDict = new SortedDictionary<string, string>(RequestArgs);
             var sortedArgs = BuildRequestData(sortetDict);
