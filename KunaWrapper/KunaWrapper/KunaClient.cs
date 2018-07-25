@@ -19,6 +19,7 @@ namespace KunaWrapper
 
         private readonly SignParams signParams;
 
+
         public KunaClient(string pubKey, string secKey)
         {
             signParams = new SignParams(pubKey, secKey);
@@ -26,43 +27,27 @@ namespace KunaWrapper
             httpClient = new HttpClient { BaseAddress = new Uri(baseAddress)};
         }
 
-        protected async Task<T> GetJsonAsync<T>(KunaRequest request)
+        protected async Task<T> GetJsonAsync<T>(BaseRequest request)
         {
             var response = await httpClient.GetAsync(request.ToString()).ConfigureAwait(false);
+            
+            KunaApiException.CheckException(response); 
+            //response.EnsureSuccessStatusCode();         // throw if web request failed
 
             var json = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var exception = JsonConvert.DeserializeObject<Error>(json);
-
-                throw new KunaApiException("Ошибка подключения к Kuna:" +
-                                            $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
-                                            $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
-            }
-
-            response.EnsureSuccessStatusCode();         // throw if web request failed
             
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(json));
         }
 
-        protected async Task<T> PostJsonAsync<T>(KunaRequest request)
+        protected async Task<T> PostJsonAsync<T>(BaseRequest request)
         {
             var response = await httpClient.PostAsync(request.Url,
                 new StringContent(request.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded")).ConfigureAwait(false);
 
+            KunaApiException.CheckException(response);
+            //response.EnsureSuccessStatusCode();         // throw if web request failed
+
             var json = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var exception = JsonConvert.DeserializeObject<Error>(json);
-
-                throw new KunaApiException("Ошибка подключения к Kuna:" +
-                                            $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
-                                            $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
-            }
-
-            response.EnsureSuccessStatusCode();         // throw if web request failed
             
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(json));
         }
@@ -89,9 +74,11 @@ namespace KunaWrapper
 
         public async Task<OrderBook> GetOrderBookAsync(MarketPair pair) => await GetJsonAsync<OrderBook>(new RequestOrderbook(pair));
 
+        public async Task<Depth> GetDepthAsync(MarketPair pair) => await GetJsonAsync<Depth>(new RequestDepth(pair));
+
         public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000) => await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
 
-        public async Task<Depth> GetDepthAsync(MarketPair pair) => await GetJsonAsync<Depth>(new RequestDepth(pair));
+        public async Task<Depth> GetChartDataAsync(MarketPair pair, ushort period = 60, ushort limit = 24) => await GetJsonAsync<Depth>(new RequestChartData(pair, period, limit));
 
         #endregion
 

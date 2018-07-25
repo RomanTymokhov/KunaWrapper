@@ -11,7 +11,7 @@ namespace KunaWrapper.DataLayer.KunaException
     public class ErrorMessage
     {
         [JsonProperty("code")]
-        public long Code { get; set; }
+        public ushort Code { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }
