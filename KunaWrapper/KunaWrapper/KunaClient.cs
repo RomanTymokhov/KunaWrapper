@@ -8,6 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using System;
+using KunaWrapper.DataLayer.RequestData.FrameData;
 
 namespace KunaWrapper
 {
@@ -78,7 +79,7 @@ namespace KunaWrapper
 
         public async Task<List<Trade>> GetTradesAsync(MarketPair pair, ushort limit = 1000) => await GetJsonAsync<List<Trade>>(new RequestTrades(pair, limit));
 
-        public async Task<Depth> GetChartDataAsync(MarketPair pair, ushort period = 60, ushort limit = 24) => await GetJsonAsync<Depth>(new RequestChartData(pair, period, limit));
+        public async Task<List<List<float>>> GetChartDataAsync(ChartFrame chart, MarketPair pair) => await GetJsonAsync<List<List<float>>>(new RequestChartData(pair, chart));
 
         #endregion
 
