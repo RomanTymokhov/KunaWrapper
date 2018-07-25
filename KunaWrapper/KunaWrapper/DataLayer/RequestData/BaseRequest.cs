@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
-    public abstract class KunaRequest
+    public abstract class BaseRequest
     {
         private readonly string secretKey;
 
@@ -16,9 +16,9 @@ namespace KunaWrapper.DataLayer.RequestData
         internal Dictionary<string, string> RequestArgs { get; set; }
 
 
-        public KunaRequest() => RequestArgs = new Dictionary<string, string>();
+        public BaseRequest() => RequestArgs = new Dictionary<string, string>();
 
-        public KunaRequest(SignParams sign)
+        public BaseRequest(SignParams sign)
         {
             secretKey = sign.SecretKey;
 
