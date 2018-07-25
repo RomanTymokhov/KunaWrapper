@@ -11,7 +11,7 @@ namespace KunaWrapper.DataLayer.RequestData
     {
         private readonly string secretKey;
 
-        public string Url { get; set; }
+        internal string Url { get; set; }
 
         internal Dictionary<string, string> RequestArgs { get; set; }
 
