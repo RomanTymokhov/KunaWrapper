@@ -37,7 +37,7 @@ namespace KunaWrapper
 
             var json = await response.Content.ReadAsStringAsync();
             
-            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(json));
+            return await Task.Run(() => JsonConvert.DeserializeObject<T>(json));
         }
 
         protected async Task<T> PostJsonAsync<T>(BaseRequest request)
@@ -50,7 +50,7 @@ namespace KunaWrapper
 
             var json = await response.Content.ReadAsStringAsync();
             
-            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(json));
+            return await Task.Run(() => JsonConvert.DeserializeObject<T>(json));
         }
 
         #region Private Methods
