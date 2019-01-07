@@ -1,25 +1,17 @@
-﻿using KunaWrapper.DataLayer.Enums;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-namespace KunaWrapper.DataLayer.RequestData
+﻿namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestPlaceOrder : BaseRequest
     {
-        public RequestPlaceOrder(SignParams sign, OrderSide orderSide, decimal volume, MarketPair pair, decimal coinPrice) : base(sign)
+        public RequestPlaceOrder(AuthData sign, string ordeType, string pairId, decimal volume, decimal coinPrice) : base(sign)
         {
-            RequestArgs["side"] = orderSide.ToString();
-            RequestArgs["volume"] = volume.ToString(CultureInfo.InvariantCulture);
-            RequestArgs["market"] = pair.ToString();
-            RequestArgs["price"] = coinPrice.ToString(CultureInfo.InvariantCulture);
+            arguments["market"] = pairId;
+            arguments["side"]   = ordeType;
+            arguments["volume"] = volume.ToString(culture);
+            arguments["price"]  = coinPrice.ToString(culture);
 
-            Url = "/api/v2/orders";
+            queryUrl = "/api/v2/orders";
 
             GenerateRequest("POST");
         }
-
-        public override string ToString() => BuildRequestData(RequestArgs);
     }
 }
