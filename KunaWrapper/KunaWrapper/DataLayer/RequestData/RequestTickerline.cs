@@ -1,14 +1,10 @@
-﻿using KunaWrapper.DataLayer.Enums;
-
-namespace KunaWrapper.DataLayer.RequestData
+﻿namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestTickerline : BaseRequest
     {
-        public RequestTickerline(MarketPair pair) : base()
+        public RequestTickerline(string pairId) : base()
         {
-            Url = "/api/v2/tickers/" + pair.ToString();
+            queryUrl = "/api/v2/tickers/" + pairId;
         }
-
-        public override string ToString() => Url;
     }
 }
