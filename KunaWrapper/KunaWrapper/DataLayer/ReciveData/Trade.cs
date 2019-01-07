@@ -21,7 +21,7 @@ namespace KunaWrapper.DataLayer.ReciveData
         public decimal QuotedVolume => funds;
 
         [JsonProperty("market")]
-        public string CurrencyId { get; private set; }
+        public string PairId { get; private set; }
 
         [JsonProperty("created_at")]
         public DateTime CreatedTime { get; private set; }  //check responce this fild
