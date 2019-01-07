@@ -1,23 +1,14 @@
-﻿using KunaWrapper.DataLayer.Enums;
-using System.Text;
-
-namespace KunaWrapper.DataLayer.RequestData
+﻿namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestOrderbook : BaseRequest
     {
-        public RequestOrderbook(MarketPair pair) : base()
+        public RequestOrderbook(string pairId) : base()
         {
-            Url = "/api/v2/order_book";
+            queryUrl = "/api/v2/order_book";
 
-            RequestArgs["market"] = pair.ToString();
-        }
+            arguments["market"] = pairId;
 
-        public override string ToString()
-        {
-            var url = new StringBuilder(Url);
-            url.AppendFormat("?{0}", BuildRequestData(RequestArgs));
-
-            return url.ToString();
+            GenerateRequest("GET"); //??
         }
     }
 }
