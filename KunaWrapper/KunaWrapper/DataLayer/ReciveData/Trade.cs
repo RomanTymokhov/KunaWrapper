@@ -26,6 +26,9 @@ namespace KunaWrapper.DataLayer.ReciveData
         [JsonProperty("created_at")]
         public DateTime CreatedTime { get; private set; }
 
+        [JsonProperty("trend")]
+        public string TradeType { get; private set; }
+
         [JsonProperty("side")]
         public string OrderSide { get; private set; }
 
