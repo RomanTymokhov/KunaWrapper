@@ -30,7 +30,7 @@ namespace KunaWrapper.DataLayer.ReciveData
         private readonly decimal price;
         public decimal CoinPrice => price;
         
-        private readonly decimal avgPrice;       // средняя цена по ордеру
+        private readonly decimal avgPrice;  
         public decimal AveragePrice => avgPrice;
 
         [JsonProperty("state")]
@@ -40,7 +40,7 @@ namespace KunaWrapper.DataLayer.ReciveData
         public string MarketPair { get; private set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedTime { get; private set; }
+        public DateTime CreatedTime { get; private set; }  //check responce this fild
         
         private readonly decimal volume;
         public decimal BaseVolume => volume;
@@ -52,7 +52,7 @@ namespace KunaWrapper.DataLayer.ReciveData
         public decimal ExeutedVolume => executedVolume;
 
         [JsonProperty("trades_count")]
-        public ushort TradesCount { get; set; }
+        public ushort TradesCount { get; private set; }
 
         [JsonConstructor]
         public Order(string price, string avg_price, string volume, string remaining_volume, string executed_volume)
