@@ -1,4 +1,4 @@
-﻿namespace KunaWrapper.DataLayer.RequestData
+﻿namespace KunaWrapper.DataLayer
 {
     public static class ServiceTypes
     {
