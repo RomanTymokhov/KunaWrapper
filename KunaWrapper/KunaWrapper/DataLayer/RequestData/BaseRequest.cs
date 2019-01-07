@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Web;
-using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using KunaWrapper.DataLayer.Helper;
 
 namespace KunaWrapper.DataLayer.RequestData
 {
@@ -11,43 +11,34 @@ namespace KunaWrapper.DataLayer.RequestData
     {
         private readonly string secretKey;
 
-        internal string Url { get; set; }
+        internal string queryUrl;
+        internal SortedDictionary<string, string> arguments;
+        internal IFormatProvider culture = CultureInfo.InvariantCulture;
 
-        internal Dictionary<string, string> RequestArgs { get; set; }
-
-
-        public BaseRequest() => RequestArgs = new Dictionary<string, string>();
-
-        public BaseRequest(SignParams sign)
+        public BaseRequest() => arguments = new SortedDictionary<string, string>();
+        public BaseRequest(AuthData sign) : this()
         {
             secretKey = sign.SecretKey;
-
-            RequestArgs = new Dictionary<string, string>
-            {
-                ["access_key"] = sign.PublicKey,
-                ["tonce"] = sign.GetTonce()
-            };
+            arguments["tonce"] = GetTonce();
+            arguments["access_key"] = sign.PublicKey;
         }
 
+        public void GenerateRequest(string httpVerb) => EncryptSignature(Signature(httpVerb));
+        public string Url => arguments.Count == 0 ? queryUrl : new StringBuilder(queryUrl).AppendFormat("?{0}", arguments.ToKeyValueString()).ToString();
 
-        public void GenerateRequest(string method) => CreateSignature(method, Url);
-
-        private void CreateSignature(string method, string uri)
+        private void EncryptSignature(string signature)
         {
-            var sortetDict = new SortedDictionary<string, string>(RequestArgs);
-            var sortedArgs = BuildRequestData(sortetDict);
-            var msg = method + "|" + uri + "|" + sortedArgs;  // "HTTP-verb|URI|params"
-            var key = Encoding.ASCII.GetBytes(secretKey);
-            var msgBytes = Encoding.ASCII.GetBytes(msg);
-            using (var hmac = new HMACSHA256(key))
+            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secretKey)))
             {
-                byte[] hashmessage = hmac.ComputeHash(msgBytes);
+                byte[] hashmessage = hmac.ComputeHash(Encoding.UTF8.GetBytes(signature));
 
-                RequestArgs["signature"] = BitConverter.ToString(hashmessage).Replace("-", string.Empty).ToLower();                
+                arguments["signature"] = BitConverter.ToString(hashmessage).Replace("-", string.Empty).ToLower();                
             }
         }
 
-        internal static string BuildRequestData(IDictionary<string, string> dict, bool escape = true) => string.Join("&", dict.Select(kvp =>
-                 string.Format("{0}={1}", kvp.Key, escape ? HttpUtility.UrlEncode(kvp.Value) : kvp.Value)));
+        private string Signature(string httpVerb) => // "HTTP-verb|URI|params"
+            new StringBuilder(httpVerb).AppendFormat("|{0}|{1}", queryUrl, arguments.ToKeyValueString()).ToString();
+
+        private string GetTonce() => DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
     }
 }
