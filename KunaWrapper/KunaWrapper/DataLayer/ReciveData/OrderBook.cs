@@ -1,61 +1,67 @@
 ﻿using System;
 using Newtonsoft.Json;
-using System.Globalization;
 using System.Collections.Generic;
-using KunaWrapper.DataLayer.Enums;
+
+using static System.Globalization.CultureInfo;
+using static System.Globalization.NumberStyles;
 
 namespace KunaWrapper.DataLayer.ReciveData
 {
     public class OrderBook
     {
         [JsonProperty("asks")]
-        public List<Order> Asks { get; set; }
+        public List<Order> Asks { get; private set; }
 
         [JsonProperty("bids")]
-        public List<Order> Bids { get; set; }
+        public List<Order> Bids { get; private set; }
     }
 
     public class Order
     {
         [JsonProperty("id")]
-        public uint OrderId { get; set; }
+        public uint OrderId { get; private set; }
 
         [JsonProperty("side")]
-        public OrderSide OrderSide { get; set; }
+        public string OrderSide { get; private set; }
 
         [JsonProperty("ord_type")]
-        public OrderType OrderType { get; set; }
-
-        [JsonProperty("price")]
-        private readonly string price;
-        public decimal CoinPrice => price != null ? Convert.ToDecimal(price, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("avg_price")]
-        private readonly string avg_price;       // средняя цена по ордеру
-        public decimal AveragePrice => avg_price != null ? Convert.ToDecimal(avg_price, CultureInfo.InvariantCulture) : -1;
+        public string OrderType { get; private set; }
+        
+        private readonly decimal price;
+        public decimal CoinPrice => price;
+        
+        private readonly decimal avgPrice;       // средняя цена по ордеру
+        public decimal AveragePrice => avgPrice;
 
         [JsonProperty("state")]
-        public OrderState OrderState { get; set; }
+        public string OrderState { get; private set; }
 
         [JsonProperty("market")]
-        public MarketPair MarketPair { get; set; }
+        public string MarketPair { get; private set; }
 
         [JsonProperty("created_at")]
-        public DateTime CreatedTime { get; set; }
+        public DateTime CreatedTime { get; private set; }
+        
+        private readonly decimal volume;
+        public decimal BaseVolume => volume;
+        
+        private readonly decimal remainingVolume;
+        public decimal RemaininVolume => remainingVolume;
 
-        [JsonProperty("volume")]
-        private readonly string volume;
-        public decimal BaseVolume => volume != null ? Convert.ToDecimal(volume, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("remaining_volume")]
-        private readonly string remainingVolume;
-        public decimal RemaininVolume => remainingVolume != null ? Convert.ToDecimal(remainingVolume, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("executed_volume")]
-        private readonly string executedVolume;
-        public decimal ExeutedVolume => executedVolume != null ? Convert.ToDecimal(executedVolume, CultureInfo.InvariantCulture) : -1;
+        private readonly decimal executedVolume;
+        public decimal ExeutedVolume => executedVolume;
 
         [JsonProperty("trades_count")]
         public ushort TradesCount { get; set; }
+
+        [JsonConstructor]
+        public Order(string price, string avg_price, string volume, string remaining_volume, string executed_volume)
+        {
+            decimal.TryParse(price,  Any, InvariantCulture, out this.price);
+            decimal.TryParse(volume, Any, InvariantCulture, out this.volume);
+            decimal.TryParse(avg_price, Any, InvariantCulture, out avgPrice);
+            decimal.TryParse(remaining_volume, Any, InvariantCulture, out remainingVolume);
+            decimal.TryParse(executed_volume,  Any, InvariantCulture, out executedVolume);
+        }
     }
 }
