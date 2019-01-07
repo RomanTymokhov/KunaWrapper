@@ -4,9 +4,7 @@
     {
         public RequestTimestamp () : base()
         {
-            Url = "/api/v2/timestamp";
+            queryUrl = "/api/v2/timestamp";
         }
-
-        public override string ToString() => Url;
     }
 }
