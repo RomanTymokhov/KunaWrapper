@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Globalization;
+
+using static System.Globalization.CultureInfo;
+using static System.Globalization.NumberStyles;
 
 namespace KunaWrapper.DataLayer.ReciveData
 {
@@ -14,20 +15,25 @@ namespace KunaWrapper.DataLayer.ReciveData
         public bool IsAktivated { get; private set; }
 
         [JsonProperty("accounts")]
-        public List<Assets> Assetses { get; private set; }
+        public List<Assets> Assets { get; private set; }
     }
 
     public class Assets
     {
         [JsonProperty("currency")]
-        public string Currency { get; private set; }
+        public string CurrencyId { get; private set; }
+        
+        private readonly decimal balance;
+        public decimal Ballance => balance;
+        
+        private readonly decimal locked;
+        public decimal LockedSum => locked;
 
-        [JsonProperty("balance")]
-        private readonly string ballance;
-        public decimal Ballance => ballance != null ? Convert.ToDecimal(ballance, CultureInfo.InvariantCulture) : -1 ;
-
-        [JsonProperty("locked")]
-        private readonly string lockedSum;
-        public decimal LockedSum => ballance != null ? Convert.ToDecimal(lockedSum, CultureInfo.InvariantCulture) : -1;
+        [JsonConstructor]
+        public Assets(string balance, string locked)
+        {
+            decimal.TryParse(balance, Any, InvariantCulture, out this.balance);
+            decimal.TryParse(locked,  Any, InvariantCulture, out this.locked);
+        }
     }
 }
