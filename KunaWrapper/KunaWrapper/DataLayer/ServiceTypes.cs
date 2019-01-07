@@ -17,5 +17,13 @@
         //------------ Market Type ----------//
         public const string _limit  = "limit";
         public const string _market = "market";
+
+        //------------ Frame Period ----------//
+        public const string _15_min = "15";
+        public const string _30_min = "30";
+        public const string _1_hour = "60";
+        public const string _4_hour = "240";
+        public const string _day    = "1440";
+        public const string _week   = "10080";
     }
 }
