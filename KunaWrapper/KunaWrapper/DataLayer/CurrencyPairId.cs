@@ -1,6 +1,6 @@
 ﻿namespace KunaWrapper.DataLayer
 {
-    public static class CurrencyId
+    public static class CurrencyPairId
     {
         public const string btc_uah  = "btcuah";
         public const string eth_uah  = "ethuah";
