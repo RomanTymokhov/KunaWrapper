@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KunaWrapper.DataLayer.RequestData
+﻿namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestCancelOrder : BaseRequest
     {
-        public RequestCancelOrder(SignParams sign, uint orderId) : base(sign)
+        public RequestCancelOrder(AuthData sign, uint orderId) : base(sign)
         {
-            RequestArgs["id"] = orderId.ToString();
+            queryUrl = "/api/v2/order/delete";
 
-            Url = "/api/v2/order/delete";
+            arguments["id"] = orderId.ToString();
 
             GenerateRequest("POST");
         }
-
-        public override string ToString() => BuildRequestData(RequestArgs);
     }
 }
