@@ -1,42 +1,53 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+
+using static System.Globalization.CultureInfo;
+using static System.Globalization.NumberStyles;
 
 namespace KunaWrapper.DataLayer.ReciveData
 {
     public class Depth
     {
+        public List<DepthItem> Asks = new List<DepthItem>();
+        public List<DepthItem> Bids = new List<DepthItem>();
+
         [JsonProperty("timestamp")]
-        public long timestamp;
+        public ulong Timestamp { get; private set; }
 
         [JsonProperty("asks")]
-        private readonly List<List<string>> asks;
-        public List<List<decimal>> Asks => ConvertToDecimal(asks);
-
-        [JsonProperty("bids")]
-        private readonly List<List<string>> bids;
-        public List<List<decimal>> Bids => ConvertToDecimal(bids);
-
-        //потом может как-то оптимизировать
-        private List<List<decimal>> ConvertToDecimal(List<List<string>> depthList)
+        private List<List<string>> ComingAsks
         {
-            var list = new List<List<decimal>>();
-
-            foreach (var depth in depthList)
+            set
             {
-                for (int i = 0; i < depth.Count; i++)
+                foreach (var item in value)
                 {
-                    list.Add(new List<decimal>
-                    {
-                        depth[0] != null ? Convert.ToDecimal(depth[0], CultureInfo.InvariantCulture) : -1,
-                        depth[1] != null ? Convert.ToDecimal(depth[1], CultureInfo.InvariantCulture) : -1
-                    });
+                    if (item != null) Asks.Add(new DepthItem(item));
                 }
             }
+        }
 
-            return list;
+        [JsonProperty("bids")]
+        private List<List<string>> ComingBids
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    if (item != null) Bids.Add(new DepthItem(item));
+                }
+            }
+        }
+    }
+
+    public class DepthItem
+    {
+        public readonly decimal rate;
+        public readonly decimal amount;
+
+        public DepthItem(List<string> lst)
+        {
+            decimal.TryParse(lst[0], Any, InvariantCulture, out rate);
+            decimal.TryParse(lst[1], Any, InvariantCulture, out amount);
         }
     }
 }
