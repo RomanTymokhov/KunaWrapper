@@ -1,46 +1,52 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Globalization;
+
+using static System.Globalization.CultureInfo;
+using static System.Globalization.NumberStyles;
 
 namespace KunaWrapper.DataLayer.ReciveData
 {
     public class TickerLine
     {
         [JsonProperty("at")]
-        public ulong ServerTime { get; set; }
+        public ulong ServerTime { get; private set; }
 
         [JsonProperty("ticker")]
-        public Ticker ticker;
+        public Ticker Ticker { get; private set; }
     }
 
     public class Ticker
     {
-        [JsonProperty("buy")]        
-        private readonly string buy;    // ели вдруг придет null - запишем -1;
-        public decimal BuyPrice => buy != null ? Convert.ToDecimal(buy, CultureInfo.InvariantCulture) : -1;
+        private readonly decimal buy;
+        public decimal BuyPrice => buy;
+        
+        private readonly decimal sell;
+        public decimal SellPrice => sell;
+        
+        private readonly decimal low;
+        public decimal MinPricePerDay => low;
+        
+        private readonly decimal high;
+        public decimal MaxPricePerDay => high;
+        
+        private readonly decimal last;
+        public decimal LastOperationPrice => last;
+        
+        private readonly decimal vol;
+        public decimal CoinVolumePerDay => vol;
+        
+        private readonly decimal amount;
+        public decimal AmountVolumePerDay => amount;
 
-        [JsonProperty("sell")]
-        private readonly string sell;
-        public decimal SellPrice => sell != null ? Convert.ToDecimal(sell, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("low")]
-        private readonly string low;
-        public decimal MinPricePerDay => low != null ? Convert.ToDecimal(low, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("high")]
-        private readonly string high;
-        public decimal MaxPricePerDay => high != null ? Convert.ToDecimal(high, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("last")]
-        private readonly string last;
-        public decimal LastOperationPrice => last != null ? Convert.ToDecimal(last, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("vol")]
-        private readonly string vol;
-        public decimal CoinVolumePerDay => vol != null ? Convert.ToDecimal(vol, CultureInfo.InvariantCulture) : -1;
-
-        [JsonProperty("amount")]
-        private readonly string amount;
-        public decimal AmountVolumePerDay => amount != null ? Convert.ToDecimal(amount, CultureInfo.InvariantCulture) : -1;
+        [JsonConstructor]
+        public Ticker(string buy, string sell, string low, string high, string last, string vol, string amount)
+        {
+            decimal.TryParse(buy,   Any, InvariantCulture, out this.buy);
+            decimal.TryParse(sell,  Any, InvariantCulture, out this.sell);
+            decimal.TryParse(low,   Any, InvariantCulture, out this.low);
+            decimal.TryParse(high,  Any, InvariantCulture, out this.high);
+            decimal.TryParse(last,  Any, InvariantCulture, out this.last);
+            decimal.TryParse(vol,   Any, InvariantCulture, out this.vol);
+            decimal.TryParse(amount,Any, InvariantCulture, out this.amount);
+        }
     }
 }
