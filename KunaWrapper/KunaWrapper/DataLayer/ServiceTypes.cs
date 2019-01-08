@@ -23,7 +23,7 @@
         public const string _30_min = "30";
         public const string _1_hour = "60";
         public const string _4_hour = "240";
-        public const string _day    = "1440";
-        public const string _week   = "10080";
+        public const string _1_day  = "1440";
+        public const string _1_week = "10080";
     }
 }
