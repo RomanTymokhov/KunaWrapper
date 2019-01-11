@@ -25,5 +25,7 @@
         public const string kun_btc  = "kunbtc";
         public const string eos_btc  = "eosbtc";
         public const string eth_btc  = "ethbtc";
+
+        public const string gol_gbg = "golgbg";
     }
 }
