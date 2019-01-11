@@ -8,8 +8,8 @@ namespace KunaWrapper.DataLayer.ReciveData
 {
     public class Depth
     {
-        public List<DepthItem> Asks = new List<DepthItem>();
-        public List<DepthItem> Bids = new List<DepthItem>();
+        public List<DepthItem> Asks { get; private set; } = new List<DepthItem>();
+        public List<DepthItem> Bids { get; private set; } = new List<DepthItem>();
 
         [JsonProperty("timestamp")]
         public ulong Timestamp { get; private set; }
