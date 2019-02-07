@@ -15,7 +15,9 @@ namespace KunaWrapper.DataLayer.KunaException
 
         public static void CheckException(HttpResponseMessage response)
         {
-            if (response.StatusCode == HttpStatusCode.Forbidden || response.StatusCode == HttpStatusCode.NotFound)
+            if (response.StatusCode == HttpStatusCode.Forbidden || 
+                response.StatusCode == HttpStatusCode.NotFound  || 
+                response.StatusCode == HttpStatusCode.MethodNotAllowed)
                 throw new KunaException(response.ReasonPhrase);
             else
             {
