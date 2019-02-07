@@ -2,11 +2,12 @@
 {
     internal class RequestHolderOrders : BaseRequest
     {
-        public RequestHolderOrders(AuthData sign, string pairId) : base(sign)
+        public RequestHolderOrders(AuthData sign, string pairId, string state) : base(sign)
         {
             queryUrl = "/api/v2/orders";
 
             arguments["market"] = pairId;
+            arguments["state"] = state;
 
             GenerateRequest("GET");
         }
