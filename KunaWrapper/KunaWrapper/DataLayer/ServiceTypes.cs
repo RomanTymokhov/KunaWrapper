@@ -13,6 +13,7 @@
         //------------ Order Side ----------//
         public const string _wait   = "wait";
         public const string _cancel = "cancel";
+        public const string _done   = "done";
 
         //------------ Market Type ----------//
         public const string _limit  = "limit";
