@@ -12,7 +12,7 @@ namespace KunaWrapper.DataLayer.RequestData
 
             arguments["currency"] = currencyId;
 
-            GenerateRequest("GET");
+            GenerateRequest("POST");
         }
     }
 }
