@@ -23,9 +23,9 @@ namespace KunaWrapper.DataLayer.KunaException
             {
                 var exception = JsonConvert.DeserializeObject<Error>(response.Content.ReadAsStringAsync().Result);
 
-                throw new KunaException("Ошибка подключения к Kuna:" +
-                                            $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
-                                            $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
+                throw new KunaException($"{Environment.NewLine} Ошибка подключения к Kuna:" +
+                                        $"{Environment.NewLine} errorCode: {exception.ErrorMessage.Code} " +
+                                        $"{Environment.NewLine} errorMessage: {exception.ErrorMessage.Message}");
             }            
         }
     }
