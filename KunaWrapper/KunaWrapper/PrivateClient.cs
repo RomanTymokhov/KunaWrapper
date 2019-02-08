@@ -11,7 +11,7 @@ namespace KunaWrapper
     {
         public PrivateClient(string apiKey, string apiSec) : base(apiKey, apiSec) { }
 
-        public async Task<Holder> GetHolderInfoAsync() =>
+        public async Task<Holder> ReturnHolderInfoAsync() =>
                 await GetJsonAsync<Holder>(new RequestHolderInfo(authData));
 
         /// <summary>
@@ -20,13 +20,13 @@ namespace KunaWrapper
         /// <param name="pairId">ticker of trade pair</param>
         /// <param name="state">order state: "wait"(default), "done", "cancel"</param>
         /// <returns>list of orders</returns>
-        public async Task<List<Order>> GetHolderOrdersAsync(string pairId, string state = _wait) =>
+        public async Task<List<Order>> ReturnHolderOrdersAsync(string pairId, string state = _wait) =>
                 await GetJsonAsync<List<Order>>(new RequestHolderOrders(authData, pairId, state));
 
-        public async Task<List<Trade>> GetHolderTradesAsync(string pairId) =>
+        public async Task<List<Trade>> ReturnHolderTradesAsync(string pairId) =>
                 await GetJsonAsync<List<Trade>>(new RequestHolderTrades(authData, pairId));
 
-        public async Task<List<DepositAddress>> GetDepositAddressesAsync(string currencyId) =>
+        public async Task<List<DepositAddress>> ReturnDepositAddressesAsync(string currencyId) =>
                 await GetJsonAsync<List<DepositAddress>>(new RequestDepositAddresses(authData, currencyId));
 
         public async Task<DepositAddress> CreateAddressAsync(string currencyId) =>
@@ -42,7 +42,7 @@ namespace KunaWrapper
         /// <param name="depositAddressesIds">coma separated deposit addresses Ids</param>
         /// <param name="payInIds">coma separated pay in Ids</param>
         /// <returns>object (full or not full) AllDeposits</returns>
-        public async Task<AllDeposits> GetAllDepositsAsync(ushort page, ushort perPage, bool full = false, string currecyId = null, string depositAddressesIds = null, string payInIds = null) =>
+        public async Task<AllDeposits> ReturnAllDepositsAsync(ushort page, ushort perPage, bool full = false, string currecyId = null, string depositAddressesIds = null, string payInIds = null) =>
                 await GetJsonAsync<AllDeposits>(new RequestAllDeposits(authData, page, perPage, full, currecyId, depositAddressesIds, payInIds));
 
 
