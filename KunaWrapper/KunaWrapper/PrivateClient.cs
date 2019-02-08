@@ -29,8 +29,8 @@ namespace KunaWrapper
         public async Task<List<DepositAddress>> GetDepositAddressesAsync(string currencyId) =>
                 await GetJsonAsync<List<DepositAddress>>(new RequestDepositAddresses(authData, currencyId));
 
-        public async Task<DepositAddress> CreateAddressAsync(string currensyId) =>
-                await PostJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currensyId));
+        public async Task<DepositAddress> CreateAddressAsync(string currencyId) =>
+                await PostJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currencyId));
 
         /// <summary>
         /// Return list of all deposits
