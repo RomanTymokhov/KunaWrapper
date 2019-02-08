@@ -26,11 +26,13 @@ namespace KunaWrapper
         public async Task<List<Trade>> ReturnHolderTradesAsync(string pairId) =>
                 await GetJsonAsync<List<Trade>>(new RequestHolderTrades(authData, pairId));
 
+
+
+        public async Task<DepositAddress> CreateDepositAddressAsync(string currencyId) =>
+                await PostJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currencyId));
+
         public async Task<List<DepositAddress>> ReturnDepositAddressesAsync(string currencyId) =>
                 await GetJsonAsync<List<DepositAddress>>(new RequestDepositAddresses(authData, currencyId));
-
-        public async Task<DepositAddress> CreateAddressAsync(string currencyId) =>
-                await PostJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currencyId));
 
         /// <summary>
         /// Return list of all deposits
@@ -41,9 +43,26 @@ namespace KunaWrapper
         /// <param name="currecyId">optionaly currency name</param>
         /// <param name="depositAddressesIds">coma separated deposit addresses Ids</param>
         /// <param name="payInIds">coma separated pay in Ids</param>
-        /// <returns>object (full or not full) AllDeposits</returns>
+        /// <returns>object (full or not full) DepositsInfo</returns>
         public async Task<List<DepositInfo>> ReturnAllDepositsAsync(ushort page, ushort perPage, bool full = false, string currecyId = null, string depositAddressesIds = null, string payInIds = null) =>
                 await GetJsonAsync<List<DepositInfo>>(new RequestAllDeposits(authData, page, perPage, full, currecyId, depositAddressesIds, payInIds));
+
+
+
+        /// <summary>
+        /// Returns list of all withdrawals
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="perPage"></param>
+        /// <param name="currencyId">(optionaly) currency name</param>
+        /// <param name="id"></param>
+        /// <returns>objects WithdrawalInfo</returns>
+        public async Task<List<WithdrawalInfo>> ReturnWithdrawalsAsync(ushort page, ushort perPage, string currencyId = null) =>
+                await GetJsonAsync<List<WithdrawalInfo>>(new RequestWithdrawals(authData, page, perPage, currencyId));
+
+        public async Task<WithdrawalInfo> ReturnWithdrawalInfoAsync(string withdrawalId) =>
+                await GetJsonAsync<WithdrawalInfo>(new RequestWithdrawalInfo(authData, withdrawalId));
+
 
 
         /// <summary>
