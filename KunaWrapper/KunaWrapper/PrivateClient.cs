@@ -42,8 +42,8 @@ namespace KunaWrapper
         /// <param name="depositAddressesIds">coma separated deposit addresses Ids</param>
         /// <param name="payInIds">coma separated pay in Ids</param>
         /// <returns>object (full or not full) AllDeposits</returns>
-        public async Task<AllDeposits> ReturnAllDepositsAsync(ushort page, ushort perPage, bool full = false, string currecyId = null, string depositAddressesIds = null, string payInIds = null) =>
-                await GetJsonAsync<AllDeposits>(new RequestAllDeposits(authData, page, perPage, full, currecyId, depositAddressesIds, payInIds));
+        public async Task<List<DepositInfo>> ReturnAllDepositsAsync(ushort page, ushort perPage, bool full = false, string currecyId = null, string depositAddressesIds = null, string payInIds = null) =>
+                await GetJsonAsync<List<DepositInfo>>(new RequestAllDeposits(authData, page, perPage, full, currecyId, depositAddressesIds, payInIds));
 
 
         /// <summary>
