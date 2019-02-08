@@ -26,11 +26,11 @@ namespace KunaWrapper
         public async Task<List<Trade>> GetHolderTradesAsync(string pairId) =>
                 await GetJsonAsync<List<Trade>>(new RequestHolderTrades(authData, pairId));
 
-        public async Task<DepositAddresses> GetDepositAddressesAsync(string currenyId) =>
-                await GetJsonAsync<DepositAddresses>(new RequestDepositAddresses(authData, currenyId));
+        public async Task<List<DepositAddress>> GetDepositAddressesAsync(string currenyId) =>
+                await GetJsonAsync<List<DepositAddress>>(new RequestDepositAddresses(authData, currenyId));
 
         public async Task<DepositAddress> CreateAddressAsync(string currensyId) =>
-                await GetJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currensyId));
+                await PostJsonAsync<DepositAddress>(new RequestCreateDepositAddress(authData, currensyId));
 
         /// <summary>
         /// Return list of all deposits
