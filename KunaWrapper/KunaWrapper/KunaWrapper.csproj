@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>KunaApiLibrary</PackageId>
+    <Version>1.1.0</Version>
+    <Authors>tohoff82</Authors>
+    <Company />
+    <Product />
   </PropertyGroup>
 
   <ItemGroup>
