@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+
 using static System.Globalization.CultureInfo;
 using static System.Globalization.NumberStyles;
 
@@ -26,7 +27,6 @@ namespace KunaWrapper.DataLayer.ReciveData
 
         [JsonProperty("payment_address_id")]
         public string OutId { get; private set; }
-
 
         [JsonConstructor]
         public DepositInfo(string amount, string fee)
