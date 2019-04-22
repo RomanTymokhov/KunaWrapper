@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>KunaApiLibrary</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>tohoff82</Authors>
     <Company />
     <Product />
+    <Description>API library for Kuna Exchange</Description>
   </PropertyGroup>
 
   <ItemGroup>
