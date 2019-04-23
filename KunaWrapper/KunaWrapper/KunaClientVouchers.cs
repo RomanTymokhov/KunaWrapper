@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace KunaWrapper
 {
-    public class VouchersClient : BaseClient
+    public class KunaClientVouchers : BaseClient
     {
-        public VouchersClient(string apiKey, string apiSec) : base(apiKey, apiSec) { }
+        public KunaClientVouchers(string apiKey, string apiSec) : base(apiKey, apiSec) { }
 
         /// <summary>
         /// List of member's Kuna Code.
