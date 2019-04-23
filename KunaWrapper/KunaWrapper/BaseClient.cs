@@ -14,14 +14,8 @@ namespace KunaWrapper
         private  readonly HttpClient httpClient;
         internal readonly AuthData authData;
 
-        public BaseClient()
-        {
-            httpClient = new HttpClient { BaseAddress = new Uri("https://kuna.io") };
-        }
-        public BaseClient(string pubKey, string secKey) : this()
-        {
-            authData = new AuthData(pubKey, secKey);
-        }
+        public BaseClient() => httpClient = new HttpClient { BaseAddress = new Uri("https://kuna.io") };
+        public BaseClient(string pubKey, string secKey) : this() => authData = new AuthData(pubKey, secKey);
 
         protected async Task<T> GetJsonAsync<T>(BaseRequest request)
         {
