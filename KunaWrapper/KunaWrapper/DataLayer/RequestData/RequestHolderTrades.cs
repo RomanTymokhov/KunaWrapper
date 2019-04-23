@@ -4,7 +4,7 @@
     {
         public RequestHolderTrades(AuthData sign, string pairId) : base(sign)
         {
-            arguments["market"] = pairId;
+            arguments["market"] = pairId.ToLower();
 
             queryUrl = "/api/v2/trades/my";
 

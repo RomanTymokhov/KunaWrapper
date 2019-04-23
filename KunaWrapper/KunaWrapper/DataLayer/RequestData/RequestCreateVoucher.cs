@@ -7,8 +7,8 @@
         {
             queryUrl = "/api/v2/kuna_codes/issue";
 
-            arguments["currency"] = currId;
             arguments["addressee"] = forUser;
+            arguments["currency"] = currId.ToLower();
             arguments["amount"] = amount.ToString(culture);
 
             if (nonRefund != null)   arguments["non_refundable_before"] = nonRefund;

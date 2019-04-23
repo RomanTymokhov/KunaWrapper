@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/orders";
 
-            arguments["market"] = pairId;
+            arguments["market"] = pairId.ToLower();
             arguments["state"] = state;
 
             GenerateAuthRequest("GET");

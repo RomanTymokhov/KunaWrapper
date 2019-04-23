@@ -4,8 +4,8 @@
     {
         public RequestPlaceOrder(AuthData sign, string ordeType, string pairId, decimal volume, decimal coinPrice) : base(sign)
         {
-            arguments["market"] = pairId;
             arguments["side"]   = ordeType;
+            arguments["market"] = pairId.ToLower();
             arguments["volume"] = volume.ToString(culture);
             arguments["price"]  = coinPrice.ToString(culture);
 

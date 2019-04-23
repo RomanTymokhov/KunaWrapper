@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/order_book";
 
-            arguments["market"] = pairId;
+            arguments["market"] = pairId.ToLower();
         }
     }
 }

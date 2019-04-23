@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/deposit_addresses";
 
-            arguments["currency"] = currencyId;
+            arguments["currency"] = currencyId.ToLower();
 
             GenerateAuthRequest("GET");
         }

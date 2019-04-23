@@ -8,7 +8,7 @@ namespace KunaWrapper.DataLayer.RequestData
         {
             var sb = new StringBuilder("/api/v2/tickers/");
 
-            queryUrl =  sb.Append(pairId).ToString();
+            queryUrl =  sb.Append(pairId.ToLower()).ToString();
         }
     }
 }

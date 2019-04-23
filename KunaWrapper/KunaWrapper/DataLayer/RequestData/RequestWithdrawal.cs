@@ -6,9 +6,9 @@
         {
             queryUrl = "/api/v2/withdrawal";
 
-            arguments["currency"] = currencyId;
-            arguments["address"] = address;
-            arguments["amount"] = amount.ToString(culture);
+            arguments["address"]  = address;
+            arguments["currency"] = currencyId.ToLower();
+            arguments["amount"]   = amount.ToString(culture);
 
             GenerateAuthRequest("POST");
         }

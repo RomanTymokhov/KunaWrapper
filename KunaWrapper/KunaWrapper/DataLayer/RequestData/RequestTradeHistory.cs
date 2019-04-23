@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/trades";
 
-            arguments["market"] = pairId;
+            arguments["market"] = pairId.ToLower();
             arguments["limit"]  = limit.ToString();
         }
     }

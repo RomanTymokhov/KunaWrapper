@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/depth";
 
-            arguments["market"] = pairId;
+            arguments["market"] = pairId.ToLower();
         }
     }
 }

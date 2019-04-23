@@ -9,7 +9,7 @@
             arguments["page"] = page.ToString();
             arguments["per_page"] = perPage.ToString();
 
-            if (currencyId != null) arguments["currency"] = currencyId;
+            if (currencyId != null) arguments["currency"] = currencyId.ToLower();
 
             GenerateAuthRequest("GET");
         }
