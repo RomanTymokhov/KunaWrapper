@@ -5,9 +5,9 @@ using KunaWrapper.DataLayer.RequestData;
 
 namespace KunaWrapper
 {
-    public class PublicClient : BaseClient
+    public class KunaClientPublic : BaseClient
     {
-        public PublicClient() : base() { }
+        public KunaClientPublic() : base() { }
 
         public async Task<long> ReturnTimestampAsync() => 
                 await GetJsonAsync<long>(new RequestTimestamp());
