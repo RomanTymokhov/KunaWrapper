@@ -36,7 +36,20 @@ namespace KunaWrapper
         {
             var response = await httpClient.PostAsync(request.queryUrl,
                 new StringContent(request.arguments.ToKeyValueString(), 
-                    Encoding.UTF8, "application/x-www-form-urlencoded")).ConfigureAwait(false);
+                    Encoding.UTF8, "application/x-www-form-urlencoded"))
+                        .ConfigureAwait(false);
+
+            EnsureSuccessStatusCodeAsync(response);
+
+            return await UnpackingResponseAsync<T>(response);
+        }
+
+        protected async Task<T> PutJsonAsync<T>(BaseRequest request)
+        {
+            var response = await httpClient.PutAsync(request.queryUrl,
+                new StringContent(request.arguments.ToKeyValueString(),
+                    Encoding.UTF8, "application/x-www-form-urlencoded"))
+                        .ConfigureAwait(false);
 
             EnsureSuccessStatusCodeAsync(response);
 
