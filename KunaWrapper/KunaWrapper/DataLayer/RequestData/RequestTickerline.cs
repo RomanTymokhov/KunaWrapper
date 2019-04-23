@@ -1,10 +1,14 @@
-﻿namespace KunaWrapper.DataLayer.RequestData
+﻿using System.Text;
+
+namespace KunaWrapper.DataLayer.RequestData
 {
     internal class RequestTickerline : BaseRequest
     {
         public RequestTickerline(string pairId) : base()
         {
-            queryUrl = "/api/v2/tickers/" + pairId;
+            var sb = new StringBuilder("/api/v2/tickers/");
+
+            queryUrl =  sb.Append(pairId).ToString();
         }
     }
 }
