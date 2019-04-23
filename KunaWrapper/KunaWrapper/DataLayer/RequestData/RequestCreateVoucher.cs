@@ -2,8 +2,8 @@
 {
     public class RequestCreateVoucher : BaseRequest
     {
-        public RequestCreateVoucher(AuthData sign, decimal amount, string currId, string forUser = "all", 
-                                    string nonRefund = null, string comment = null , string privComment = null) : base(sign)
+        public RequestCreateVoucher(AuthData sign, decimal amount, string currId, string forUser, 
+                                    string nonRefund, string comment, string privComment) : base(sign)
         {
             queryUrl = "/api/v2/kuna_codes/issue";
 
