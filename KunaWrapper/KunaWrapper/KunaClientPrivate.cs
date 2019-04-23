@@ -7,9 +7,9 @@ using static KunaWrapper.DataLayer.ServiceTypes;
 
 namespace KunaWrapper
 {
-    public sealed class PrivateClient : BaseClient
+    public sealed class KunaClientPrivate : BaseClient
     {
-        public PrivateClient(string apiKey, string apiSec) : base(apiKey, apiSec) { }
+        public KunaClientPrivate(string apiKey, string apiSec) : base(apiKey, apiSec) { }
 
         public async Task<Holder> ReturnHolderInfoAsync() =>
             await GetJsonAsync<Holder>(new RequestHolderInfo(authData));
