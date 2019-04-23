@@ -9,7 +9,7 @@
             arguments["page"] = page.ToString();
             arguments["per_page"] = perPage.ToString();
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

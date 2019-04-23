@@ -23,7 +23,7 @@ namespace KunaWrapper.DataLayer.RequestData
             arguments["access_key"] = sign.PublicKey;
         }
 
-        public void GenerateRequest(string httpVerb) => EncryptSignature(Signature(httpVerb));
+        public void GenerateAuthRequest(string httpVerb) => EncryptSignature(Signature(httpVerb));
         public string Url => arguments.Count == 0 ? queryUrl : new StringBuilder(queryUrl).AppendFormat("?{0}", arguments.ToKeyValueString()).ToString();
 
         private void EncryptSignature(string signature)

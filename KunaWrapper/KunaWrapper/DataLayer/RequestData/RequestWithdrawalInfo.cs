@@ -8,7 +8,7 @@
 
             arguments["id"] = withdrawalId;
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

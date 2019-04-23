@@ -14,7 +14,7 @@
             if (depositAddressesIds != null) arguments["deposit_address_ids"] = depositAddressesIds;
             if (payInIds != null) arguments["pay_in_ids"] = payInIds;
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

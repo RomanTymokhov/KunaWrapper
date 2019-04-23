@@ -10,7 +10,7 @@
             arguments["address"] = address;
             arguments["amount"] = amount.ToString(culture);
 
-            GenerateRequest("POST");
+            GenerateAuthRequest("POST");
         }
     }
 }

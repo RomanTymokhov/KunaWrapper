@@ -15,7 +15,7 @@
             if (privComment != null) arguments["private_comment"] = privComment;
             if (comment != null)     arguments["comment"] = comment;
 
-            GenerateRequest("POST");
+            GenerateAuthRequest("POST");
         }
     }
 }

@@ -8,7 +8,7 @@
 
             arguments["currency"] = currencyId;
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

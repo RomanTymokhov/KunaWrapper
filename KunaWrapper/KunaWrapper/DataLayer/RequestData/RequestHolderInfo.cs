@@ -6,7 +6,7 @@
         {
             queryUrl = "/api/v2/members/me";
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

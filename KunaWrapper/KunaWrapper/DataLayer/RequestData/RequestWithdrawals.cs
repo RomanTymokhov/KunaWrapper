@@ -11,7 +11,7 @@
 
             if (currencyId != null) arguments["currency"] = currencyId;
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

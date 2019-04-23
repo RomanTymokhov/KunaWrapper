@@ -8,7 +8,7 @@
 
             arguments["id"] = orderId.ToString();
 
-            GenerateRequest("POST");
+            GenerateAuthRequest("POST");
         }
     }
 }

@@ -9,7 +9,7 @@
             arguments["market"] = pairId;
             arguments["state"] = state;
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }

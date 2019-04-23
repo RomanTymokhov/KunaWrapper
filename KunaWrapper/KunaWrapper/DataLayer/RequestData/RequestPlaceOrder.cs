@@ -11,7 +11,7 @@
 
             queryUrl = "/api/v2/orders";
 
-            GenerateRequest("POST");
+            GenerateAuthRequest("POST");
         }
     }
 }

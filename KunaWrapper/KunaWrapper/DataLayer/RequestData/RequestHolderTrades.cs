@@ -8,7 +8,7 @@
 
             queryUrl = "/api/v2/trades/my";
 
-            GenerateRequest("GET");
+            GenerateAuthRequest("GET");
         }
     }
 }
